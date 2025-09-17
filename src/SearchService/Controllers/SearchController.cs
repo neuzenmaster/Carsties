@@ -23,7 +23,7 @@ namespace SearchService.Controllers
             switch (searchParams.OrderBy)
             {
                 case "make":
-                    query.Sort(x => x.Ascending(a => a.Make));
+                    query.Sort(x => x.Ascending(a => a.Make)).Sort(x => x.Ascending(a => a.Model));
                     break;
                 case "new":
                     query.Sort(x => x.Descending(a => a.CreatedAt));
