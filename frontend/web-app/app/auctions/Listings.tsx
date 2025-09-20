@@ -4,15 +4,26 @@ import React, { useEffect, useState } from "react";
 import AuctionCard from "./AuctionCard";
 import AppPagination from "../components/AppPagination";
 import { getData } from "../actions/auctionAction";
-import { Auction } from "@/types";
 import Filters from "./Filters";
 import { useParamsStore } from "@/hooks/useParamsStore";
 import { useShallow } from "zustand/shallow";
 import queryString from "query-string";
 import EmptyFilter from "../components/EmptyFilter";
+import { useAuctionsStore } from "@/hooks/useAuctionsStore";
 
 export default function Listings() {
-  const [data, setData] = useState<Auction[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const data = useAuctionsStore(
+    useShallow((state) => ({
+      auctions: state.auctions,
+      totalCount: state.pageCount,
+      pageCount: state.pageCount,
+    }))
+  );
+
+  const setData = useAuctionsStore((state) => state.setData);
+
   const params = useParamsStore(
     useShallow((state) => ({
       pageNumber: state.pageNumber,
@@ -38,12 +49,12 @@ export default function Listings() {
 
   useEffect(() => {
     getData(url).then((data) => {
-      setParams({ pageCount: data.pageCount });
-      setData(data.results);
+      setData(data);
+      setLoading(false);
     });
-  }, [url, setParams]);
+  }, [url, setData]);
 
-  if (!data) return <h3>Loading...</h3>;
+  if (loading) return <h3>Loading...</h3>;
 
   return (
     <>
@@ -54,7 +65,7 @@ export default function Listings() {
         <>
           <div className="grid grid-cols-4 gap-6">
             {data &&
-              data.map((auction) => (
+              data.auctions.map((auction) => (
                 <AuctionCard key={auction.id} auction={auction} />
               ))}
           </div>
@@ -63,7 +74,7 @@ export default function Listings() {
               <AppPagination
                 pageChanged={setPageNumber}
                 currentPage={params.pageNumber}
-                pageCount={params.pageCount}
+                pageCount={data.pageCount}
               />
             )}
           </div>
