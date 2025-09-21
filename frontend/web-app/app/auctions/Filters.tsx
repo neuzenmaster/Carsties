@@ -3,7 +3,7 @@ import { Button, ButtonGroup } from "flowbite-react";
 import React from "react";
 import { AiOutlineClockCircle, AiOutlineSortAscending } from "react-icons/ai";
 import { BsFillStopCircleFill, BsStopwatchFill } from "react-icons/bs";
-import { GiFinishLine, GiFlame, GiFlamer } from "react-icons/gi";
+import { GiFinishLine, GiFlame } from "react-icons/gi";
 
 const pageSizeButtons = [4, 8, 12];
 const orderButtons = [

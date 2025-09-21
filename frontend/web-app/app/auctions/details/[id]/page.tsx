@@ -20,7 +20,6 @@ export default async function Detail({
   const { id } = await params;
   const data = await getDetailedViewsData(id);
   const user = await getCurrentUser();
-  const bids = await getBidsForAuction(id);
   return (
     <>
       <div className="flex justify-between">
