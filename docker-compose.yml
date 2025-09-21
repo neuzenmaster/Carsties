@@ -150,6 +150,21 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
+  web-app:
+    image: ajeeshneudesic/web-app:latest
+    build:
+      context: .
+      dockerfile: frontend/web-app/Dockerfile
+    volumes:
+      - /var/lib/web/data
+    ports:
+      - 3000:3000
+    environment:
+      - AUTH_SECRET="VEEdhRov0azFX2o7qJ1fxGgyH5ecpmul+QthVzt9IXk="
+      - API_URL=http://gateway-svc/
+      - ID_URL=http://localhost:5000
+      - AUTH_URL=http://localhost:3000
+      - AUTH_URL_INTERNAL=http://localhost:3000
 volumes:
   pgdata:
   mongodata:
