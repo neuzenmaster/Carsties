@@ -24,11 +24,13 @@ public class CustomProfileService : IProfileService
 
         var claims = new List<Claim>
         {
-            new("username", user.UserName)
+            new("username", user!.UserName!)
         };
 
         context.IssuedClaims.AddRange(claims);
+#pragma warning disable CS8604 // Possible null reference argument.
         context.IssuedClaims.Add(existingClaims.FirstOrDefault(x => x.Type == JwtClaimTypes.Name));
+#pragma warning restore CS8604 // Possible null reference argument.
     }
 
     public Task IsActiveAsync(IsActiveContext context)
