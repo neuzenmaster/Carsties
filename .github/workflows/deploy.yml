@@ -15,6 +15,18 @@ jobs:
         service:
           - name: "ajeeshneudesic/auction-svc"
             path: "src/AuctionService"
+          - name: "ajeeshneudesic/search-svc"
+            path: "src/SearchService"
+          - name: "ajeeshneudesic/identity-svc"
+            path: "src/IdentityService"
+          - name: "ajeeshneudesic/gateway-svc"
+            path: "src/GatewayService"
+          - name: "ajeeshneudesic/bid-svc"
+            path: "src/BiddingService"
+          - name: "ajeeshneudesic/notify-svc"
+            path: "src/NotificationService"
+          - name: "ajeeshneudesic/web-app"
+            path: "frontend/web-app"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
