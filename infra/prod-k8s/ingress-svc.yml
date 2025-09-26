@@ -6,14 +6,8 @@ metadata:
     app.kubernetes.io/name: ingress-svc
 spec:
   ingressClassName: nginx
-  tls:
-    - hosts:
-        - app.carsties.local
-        - api.carsties.local
-        - id.carsties.local
-      secretName: carsties-app-tls
   rules:
-    - host: app.carsties.local
+    - host: app.jishcem.com
       http:
         paths:
           - pathType: Prefix
@@ -23,7 +17,7 @@ spec:
                 name: webapp-clusterip
                 port:
                   number: 3000
-    - host: api.carsties.local
+    - host: api.jishcem.com
       http:
         paths:
           - pathType: Prefix
@@ -33,7 +27,7 @@ spec:
                 name: gateway-clusterip
                 port:
                   number: 80
-    - host: id.carsties.local
+    - host: id.jishcem.com
       http:
         paths:
           - pathType: Prefix
