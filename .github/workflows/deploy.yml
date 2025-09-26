@@ -7,6 +7,11 @@ on:
   pull_request:
     branches: ["main"]
 
+env:
+  RESOURCE_GROUP: ${{vars.RESOURCE_GROUP}}
+  CLUSTER_NAME: ${{vars.CLUSTER_NAME}}
+  DEPLOYMENT_MANIFEST_PATH: ${{vars.DEPLOYMENT_MANIFEST_PATH}}
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -97,3 +102,18 @@ jobs:
           inlineScript: |
             az account show
             # You can write your Azure CLI inline scripts here.
+
+      # Use kubelogin to configure your kubeconfig for Azure auth
+      - name: Set up kubelogin for non-interactive login
+        uses: azure/use-kubelogin@v1
+        with:
+          kubelogin-version: "v0.0.25"
+
+      # Retrieves your Azure Kubernetes Service cluster's kubeconfig file
+      - name: Get K8s context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: ${{ env.RESOURCE_GROUP }}
+          cluster-name: ${{ env.CLUSTER_NAME }}
+          admin: "false"
+          use-kubelogin: "true"
