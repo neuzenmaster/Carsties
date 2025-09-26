@@ -2,10 +2,18 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-svc
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
   labels:
     app.kubernetes.io/name: ingress-svc
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - app.jishcem.com
+        - api.jishcem.com
+        - id.jishcem.com
+      secretName: carsties-tls
   rules:
     - host: app.jishcem.com
       http:

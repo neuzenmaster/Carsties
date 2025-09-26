@@ -44,7 +44,7 @@ metadata:
   name: gateway-svc-config
 data:
   ASPNETCORE_URLS: http://+:80
-  ClientApp: https://app.carsties.local
+  ClientApp: https://app.jishcem.com
   IdentityServiceUrl: http://identity-clusterip
 ---
 apiVersion: v1
@@ -53,8 +53,8 @@ metadata:
   name: identity-svc-config
 data:
   ASPNETCORE_URLS: http://+:80
-  IssuerUri: https://id.carsties.local
-  ClientApp: https://app.carsties.local
+  IssuerUri: https://id.jishcem.com
+  ClientApp: https://app.jishcem.com
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -62,8 +62,8 @@ metadata:
   name: webapp-svc-config
 data:
   API_URL: http://gateway-clusterip/
-  ID_URL: https://id.carsties.local
+  ID_URL: https://id.jishcem.com
   ID_URL_INTERNAL: http://identity-clusterip
-  AUTH_URL: https://app.carsties.local
+  AUTH_URL: https://app.jishcem.com
   AUTH_URL_INTERNAL: http://webapp-clusterip:3000
-  NEXT_PUBLIC_NOTIFY_URL: https://api.carsties.local/notifications
+  NEXT_PUBLIC_NOTIFY_URL: https://api.jishcem.com/notifications
