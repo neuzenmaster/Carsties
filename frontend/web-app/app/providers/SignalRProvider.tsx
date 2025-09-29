@@ -72,7 +72,10 @@ export default function SignalRProvider({ children }: Props) {
   useEffect(() => {
     if (!connection.current) {
       connection.current = new HubConnectionBuilder()
-        .withUrl(process.env.NEXT_PUBLIC_NOTIFY_URL!)
+        .withUrl(
+          process.env.NEXT_PUBLIC_NOTIFY_URL ||
+            "https://api.jishcem.com/notifications"
+        )
         .withAutomaticReconnect()
         .build();
 
